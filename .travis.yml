@@ -14,7 +14,7 @@ install:
 
 script:
   # Test PX
-  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'device_args=\"-s /dev/dm6\"'"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'mgmt_if=eth0 data_if=eth0 device_args=\"-s /dev/dm6\"'"
   # Wait for PX to come up
   - "sleep 240"
   # Show the log

@@ -18,6 +18,7 @@ script:
   - "sleep 180"
   # Show the log
   - "sudo journalctl -u portworx"
+  - "systemctl status portworx"
   # Connection test
   - "sudo /opt/pwx/bin/pxctl status"
 

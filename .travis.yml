@@ -5,14 +5,19 @@ python: "2.7"
 install:
   - pip install ansible
   - sudo apt install -y systemd
+  # Make loopback device for px to use
+  - sudo mknod -m660 /dev/dm6 b 7 18
+  - sudo touch /var/loop_device_file
+  - sudo truncate -s 64G /var/loop_device_file
+  - sudo losetup /dev/dm6 /var/loop_device_file
 
 script:
-  # Test Redis Sentinel
+  # Test PX
   - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root"
   # Wait for PX to come up
   - "sleep 180"
   # Show the log
-  - "sudo journalctl -lu portworx"
+  - "sudo journalctl -u portworx"
   # Connection test
   - "sudo /opt/pwx/bin/pxctl status"
 

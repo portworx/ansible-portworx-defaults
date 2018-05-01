@@ -1,0 +1,16 @@
+---
+language: python
+python: "2.7"
+
+install:
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+script:
+  # Test Redis Sentinel
+  - "ansible-playbook -i localhost, test/play.yml --connection=local --sudo"
+  # Connection test
+  - "/opt/pwx/bin/pxctl status"
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

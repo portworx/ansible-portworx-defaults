@@ -10,12 +10,13 @@ install:
   - sudo touch /var/loop_device_file
   - sudo truncate -s 64G /var/loop_device_file
   - sudo losetup /dev/dm6 /var/loop_device_file
+  - sudo ip a
 
 script:
   # Test PX
   - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'device_args=\"-s /dev/dm6\"'"
   # Wait for PX to come up
-  - "sleep 180"
+  - "sleep 240"
   # Show the log
   - "sudo journalctl -u portworx"
   - "sudo systemctl status portworx"

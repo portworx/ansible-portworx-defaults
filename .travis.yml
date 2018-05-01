@@ -2,10 +2,6 @@
 language: python
 python: "2.7"
 
-install:
-  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
-
 script:
   # Test Redis Sentinel
   - "ansible-playbook -i localhost, test/testpx.yml --connection=local --sudo"

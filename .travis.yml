@@ -8,9 +8,13 @@ install:
 
 script:
   # Test Redis Sentinel
-  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --sudo"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root"
+  # Wait for PX to come up
+  - "sleep 180"
+  # Show the log
+  - "sudo journalctl -lu portworx"
   # Connection test
-  - "/opt/pwx/bin/pxctl status"
+  - "sudo /opt/pwx/bin/pxctl status"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

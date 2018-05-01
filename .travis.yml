@@ -13,12 +13,12 @@ install:
 
 script:
   # Test PX
-  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'device_args=\"-s /dev/dm6\"'"
   # Wait for PX to come up
   - "sleep 180"
   # Show the log
   - "sudo journalctl -u portworx"
-  - "systemctl status portworx"
+  - "sudo systemctl status portworx"
   # Connection test
   - "sudo /opt/pwx/bin/pxctl status"
 

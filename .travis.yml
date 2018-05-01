@@ -1,6 +1,8 @@
 ---
 language: python
 python: "2.7"
+sudo: required
+dist: trusty
 
 install:
   - pip install ansible
@@ -18,7 +20,7 @@ script:
   # Wait for PX to come up
   - "sleep 240"
   # Show the log
-  - "sudo journalctl -u portworx"
+  - "sudo journalctl -ul portworx"
   - "sudo systemctl status portworx"
   # Connection test
   - "sudo /opt/pwx/bin/pxctl status"

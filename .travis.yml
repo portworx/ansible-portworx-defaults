@@ -8,7 +8,7 @@ install:
 
 script:
   # Test Redis Sentinel
-  - "ansible-playbook -i localhost, test/play.yml --connection=local --sudo"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --sudo"
   # Connection test
   - "/opt/pwx/bin/pxctl status"
 

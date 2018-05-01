@@ -6,4 +6,4 @@
     register: clusterID
 - hosts: all
   roles:
-    - role: portworx
+     - ../../ansible-portworx-defaults

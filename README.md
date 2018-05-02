@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/portworx/ansible-portworx-defaults.svg?branch=master)](https://travis-ci.org/portworx/ansible-portworx-defaults)
 # Install Portworx through Ansible
 
 Portworx is typically deployed through/with the container orchestrator.

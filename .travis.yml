@@ -20,7 +20,7 @@ script:
   # Wait for PX to come up
   - "sleep 240"
   # Show the log
-  - "sudo journalctl -ul portworx"
+  - "sudo journalctl -l -u portworx"
   - "sudo systemctl status portworx"
   # Connection test
   - "sudo /opt/pwx/bin/pxctl status"

@@ -7,7 +7,7 @@ For Kubernetes, Portworx is deployed as a `daemonset` through the
 For DCOS, Portworx is deployed through [Universe](https://docs.portworx.com/scheduler/mesosphere-dcos/install.html)
 
 This `ansible` script is intended to help install Portworx
-for [HashiCorp Nomad](https://www.nomadproject.io/)
+for [HashiCorp Nomad](https://www.nomadproject.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/),
 or for other environments where Portworx is to be deployed directly.
 
 ## Sample Playbook

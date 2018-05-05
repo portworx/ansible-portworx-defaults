@@ -1,9 +1,13 @@
 # defaults file for portworx.role
+# For full description of options, please see https://docs.portworx.com/runc/options.html
+# 
+# 'kvdb' should be set to a local 'etcd' or 'consul' cluster
+#
 kvdb: ""
 cluster_id: "-c my-portworx-cluster"
-data_if : "-d eth1"
-mgmt_if : "-m eth1"
-device_args: ""
+data_if : "-d eth0"
+mgmt_if : "-m eth0"
+device_args: "-a"
 storageless: ""
 force: ""
 journal_dev: ""

@@ -22,19 +22,25 @@ to create a custom ClusterID and install Portworx on all nodes:
     command : "uuidgen"
     register: clusterID
 - hosts: all
+  vars:
+    - kvdb: "-k etcd://70.0.1.2:2379"
+    - data_if: "-d eth1"
+    - mgmt_if: "-m eth1"
+    - device_args: "-s /dev/sdb"
+    - cluster_id: "-c {{ hostvars['localhost']['clusterID'].stdout }}"
   roles:
-    - role: portworx
+     - ../../ansible-portworx-defaults
 ```
 
-## Variables and Arguments
+The following variables are ``required``:
+* ``kvdb``  :  IPaddress:port of 'etcd' or 'consul' kvdb
+* ``cluster_id``
+* ``device_args`` :  should correspond to list of devices (each with a `-s`), or should be ``-a`` to use all available devices
 
-The sample variables provided are:
-```
-       kvdb : ""
-       data_if : "-d eth1"
-       mgmt_if : "-m eth1"
-       cluster_id : "-c {{ hostvars['localhost']['clusterID'].stdout }}"
-```
+Please note that the corresponding ``prefix`` must be included in the variable clause (ex: ``-s /dev/sdb``)
+
+The ``cluster_id`` must be the same for all nodes in the Portworx cluster, but unique among any clusters sharing the same ``kvdb``.
+The actual value can have a friendly name (ex: ``-c my-portworx-cluster``)
 
 For a complete list of command line arguments, please see [https://docs.portworx.com/runc/options.html](https://docs.portworx.com/runc/options.html)
 

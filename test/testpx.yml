@@ -5,5 +5,11 @@
     command : "uuidgen"
     register: clusterID
 - hosts: all
+  vars:
+    - kvdb: "-k etcd://70.0.183.169:2379"
+    - data_if: "-d eth1"
+    - mgmt_if: "-m eth1"
+    - device_args: "-s /dev/sdb"
+    - cluster_id: "-c {{ hostvars['localhost']['clusterID'].stdout }}"
   roles:
      - ../../ansible-portworx-defaults

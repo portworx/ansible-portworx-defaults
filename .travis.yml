@@ -3,9 +3,9 @@ language: python
 python: "2.7"
 sudo: required
 dist: trusty
-env:
-  global:
-    - HostIP=`ip a show eth0 | grep 'inet ' | awk '{print $2}' |sed -e 's/\/.*//'`
+addons:
+  hosts:
+    - pxetcd.dev
 
 install:
   - pip install ansible
@@ -24,10 +24,10 @@ install:
    --name my-etcd-1 \
    --data-dir /etcd-data \
    --listen-client-urls http://0.0.0.0:2379 \
-   --advertise-client-urls http://${HostIP}:2379 \
+   --advertise-client-urls http://pxetcd.dev:2379 \
    --listen-peer-urls http://0.0.0.0:2380 \
-   --initial-advertise-peer-urls http://${HostIP}:2380 \
-   --initial-cluster my-etcd-1=http://${HostIP}:2380 \
+   --initial-advertise-peer-urls http://pxetcd.dev:2380 \
+   --initial-cluster my-etcd-1=http://pxetcd.dev:2380 \
    --initial-cluster-token my-etcd-token \
    --initial-cluster-state new \
    --auto-compaction-retention 1
@@ -35,7 +35,7 @@ install:
 
 script:
   # Test PX
-  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'kvdb=\"-k ${HostIP}:2379\" mgmt_if=\"-m eth0\" data_if=\"-d eth0\" device_args=\"-s /dev/dm6\"'"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'kvdb=\"-k pxetcd.dev:2379\" mgmt_if=\"-m eth0\" data_if=\"-d eth0\" device_args=\"-s /dev/dm6\"'"
   # Wait for PX to come up
   - "sleep 240"
   # Show the log

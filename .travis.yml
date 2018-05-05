@@ -13,10 +13,27 @@ install:
   - sudo truncate -s 64G /var/loop_device_file
   - sudo losetup /dev/dm6 /var/loop_device_file
   - sudo ip a
+  - HostIP=`ip a show eth0 | grep 'inet ' | awk '{print $2}' |sed -e 's/\/.*//'`
+  - docker run --net=host \
+   -d --name etcd-v3.1.3 \
+   --volume=/tmp/etcd-data:/etcd-data \
+   quay.io/coreos/etcd:v3.1.3 \
+   /usr/local/bin/etcd \
+   --name my-etcd-1 \
+   --data-dir /etcd-data \
+   --listen-client-urls http://0.0.0.0:2379 \
+   --advertise-client-urls http://${HostIP}:2379 \
+   --listen-peer-urls http://0.0.0.0:2380 \
+   --initial-advertise-peer-urls http://${HostIP}:2380 \
+   --initial-cluster my-etcd-1=http://${HostIP}:2380 \
+   --initial-cluster-token my-etcd-token \
+   --initial-cluster-state new \
+   --auto-compaction-retention 1
+  - curl -X GET http://${HostIP}:2379/version
 
 script:
   # Test PX
-  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'mgmt_if=\"-m eth0\" data_if=\"-d eth0\" device_args=\"-s /dev/dm6\"'"
+  - "ansible-playbook -i localhost, test/testpx.yml --connection=local --become-user root --extra-vars 'kvdb=\"-k etcd://${HostIP}:2379\" mgmt_if=\"-m eth0\" data_if=\"-d eth0\" device_args=\"-s /dev/dm6\"'"
   # Wait for PX to come up
   - "sleep 240"
   # Show the log

@@ -4,8 +4,6 @@ python: "2.7"
 sudo: required
 dist: trusty
 
-HostIP=`ip a show eth0 | grep 'inet ' | awk '{print $2}' |sed -e 's/\/.*//'`
-
 install:
   - pip install ansible
   - sudo apt install -y systemd

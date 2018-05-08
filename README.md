@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/portworx/ansible-portworx-defaults.svg?branch=master)](https://travis-ci.org/portworx/ansible-portworx-defaults)
 # Install Portworx through Ansible
 
+[ ***experimental*** ]
 Portworx is typically deployed through/with the container orchestrator.
 For Kubernetes, Portworx is deployed as a `daemonset` through the 
 [Portworx installer](https://install.portworx.com/)

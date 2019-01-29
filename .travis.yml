@@ -2,14 +2,14 @@
 language: python
 python: "2.7"
 sudo: required
-dist: trusty
+dist: xenial
 env:
   global:
    - HostIP=`ip a show eth0 | grep 'inet ' | awk '{print $2}' |sed -e 's/\/.*//'`
 
 install:
   - pip install ansible
-  - sudo apt install -y systemd
+  #- sudo apt install -y systemd
   # Make loopback device for px to use
   - sudo mknod -m660 /dev/dm6 b 7 18
   - sudo touch /var/loop_device_file

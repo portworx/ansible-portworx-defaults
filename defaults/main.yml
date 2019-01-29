@@ -3,6 +3,7 @@
 # 
 # 'kvdb' should be set to a local 'etcd' or 'consul' cluster
 #
+px_image : ""
 kvdb: ""
 cluster_id: "-c my-portworx-cluster"
 data_if : "-d eth0"

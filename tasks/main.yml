@@ -1,8 +1,18 @@
 # tasks file for portworx.role
 ---
-- debug: msg="Command =  curl -fsSL https://get.portworx.com | sh -s -- {{ kvdb }} {{ cluster_id }} {{ data_if }} {{ mgmt_if }} {{ device_args }} {{ storageless }} {{ force }} {{ journal_dev }} {{ scheduler }} {{ environment }}"
-- debug: msg="Command output does not display.  Command takes ~3-5 minutes to complete.  Please be patient ..."
+- name: debug message
+  debug: 
+    msg: Command =  curl -fsSL https://get.portworx.com | sh -s -- {{ kvdb }} {{ cluster_id }} {{ data_if }} {{ mgmt_if }} {{ device_args }} {{ storageless }} {{ force }} {{ journal_dev }} {{ scheduler }} {{ environment }}"
+
+- name: debug message
+  debug: 
+    msg: "Command output does not display.  Command takes ~3-5 minutes to complete.  Please be patient ..."
+
 - name: Download Portworx Installer
-  get_url: url=https://get.portworx.com dest=/tmp/px-installer.sh mode=0755
+  get_url: 
+    url: https://get.portworx.com 
+    dest: /tmp/px-installer.sh 
+    mode: 0755
+
 - name: Run Install Portworx
   shell: /tmp/px-installer.sh {{ kvdb }} {{ cluster_id }} {{ data_if }} {{ mgmt_if }} {{ device_args }} {{ storageless }} {{ force }} {{ journal_dev }} {{ scheduler }} {{ pxenviron }}

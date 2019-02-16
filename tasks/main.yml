@@ -2,7 +2,7 @@
 ---
 - name: debug message
   debug: 
-    msg: Command =  curl -fsSL https://get.portworx.com | sh -s -- {{ kvdb }} {{ cluster_id }} {{ data_if }} {{ mgmt_if }} {{ device_args }} {{ storageless }} {{ force }} {{ journal_dev }} {{ scheduler }} {{ environment }}"
+    msg: "Command =  curl -fsSL https://get.portworx.com | sh -s -- {{ kvdb }} {{ cluster_id }} {{ data_if }} {{ mgmt_if }} {{ device_args }} {{ storageless }} {{ force }} {{ journal_dev }} {{ scheduler }} {{ environment }}"
 
 - name: debug message
   debug: 
